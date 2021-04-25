@@ -1,0 +1,6 @@
+﻿django
+djangorestframework
+requests
+markdown
+django-filter  
+pillow

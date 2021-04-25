@@ -1,0 +1,1 @@
+"W:\[__stepik]\[academy]\[Django_REST_Framework_на_практике_платный]\week01\_задание_week01_drf\drf_week01\venv\Scripts\python.exe" %*
