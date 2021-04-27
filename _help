@@ -1,0 +1,58 @@
+
+W:\[__stepik]\[academy]\[Django_REST_Framework_на_практике_платный]\week01\_задание_week01_drf\drf_week01>"W:\[__stepik]\[academy]\[Django_REST_Framework_на_практике_платный]\week01\_задание_week01_drf\drf_week01\venv\Scripts\python.exe" manage.py help 
+
+Type 'manage.py help <subcommand>' for help on a specific subcommand.
+
+Available subcommands:
+
+[auth]
+    changepassword
+    createsuperuser
+
+[contenttypes]
+    remove_stale_contenttypes
+
+[django]
+    check
+    compilemessages
+    createcachetable
+    dbshell
+    diffsettings
+    dumpdata
+    flush
+    inspectdb
+    loaddata
+    makemessages
+    makemigrations
+    migrate
+    sendtestemail
+    shell
+    showmigrations
+    sqlflush
+    sqlmigrate
+    sqlsequencereset
+    squashmigrations
+    startapp
+    startproject
+    test
+    testserver
+
+[items]
+    import_items
+
+[rest_framework]
+    generateschema
+
+[reviews]
+    import_reviews
+
+[sessions]
+    clearsessions
+
+[staticfiles]
+    collectstatic
+    findstatic
+    runserver
+
+[users]
+    import_users
