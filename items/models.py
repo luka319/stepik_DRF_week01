@@ -3,23 +3,57 @@ from django.db import models
 # from django.db.models.fields.files import ImageFieldFile
 # Create your models here.
 from drf_week01.settings import MEDIA_IMAGE_DIR
+from django.conf import settings
+#=====================
+from django.core.files import File
+from urllib.request import urlopen
+from tempfile import NamedTemporaryFile
 
-
+#=====================
 class Item(models.Model): # (набор продуктов):
     # Создайте модель «Company – компания» с полями:
     title = models.CharField(max_length=255, verbose_name="заголовок") #title (заголовок или наименование)
     description= models.TextField()  # description (описание) — TextField;
     image = models.ImageField(default="",  #image (картинка) – ImageField;
                              upload_to=MEDIA_IMAGE_DIR,
-                             height_field='height_field',
-                             width_field='width_field')
-    height_field = models.PositiveIntegerField(default=0)
-    width_field = models.PositiveIntegerField(default=0)
+                             # height_field='height_field',
+                             # width_field='width_field'
+                              )
+    # height_field = models.PositiveIntegerField(default=0)
+    # width_field = models.PositiveIntegerField(default=0)
+    #=========================================================
+    # img_width = models.PositiveIntegerField(null=True)
+    # img_height = models.PositiveIntegerField(null=True)
+    # logo = models.ImageField(upload_to='avatars', height_field='img_height', width_field='img_width')
+
+    # image_file = models.ImageField(upload_to='images')
+    # image_url = models.URLField()
 
     # weight (вес в граммах) – PositiveSmallIntegerField;
     weight = models.PositiveSmallIntegerField(default=0)
     # price (цена в рублях) – DecimalField;
     price = models.DecimalField(max_digits=9, decimal_places=8)
+
+    # image_file = models.ImageField(upload_to='images')
+    # image_file = image
+    image_url = models.URLField()
+
+    def save(self, *args, **kwargs):
+        # if self.image_url and not self.image_file:
+        if self.image_url and not self.image:
+            img_temp = NamedTemporaryFile(delete=True)
+            img_temp.write(urlopen(self.image_url).read())
+            img_temp.flush()
+            self.image.save(f"image_{self.pk}", File(img_temp))
+        super(Item, self).save(*args, **kwargs)
+
+    # def get_remote_image(self):
+    #     if self.image_url and not self.image_file:
+    #         img_temp = NamedTemporaryFile(delete=True)
+    #         img_temp.write(urlopen(self.image_url).read())
+    #         img_temp.flush()
+    #         self.image_file.save(f"image_{self.pk}", File(img_temp))
+    #     self.save()
 
     class Meta:
         verbose_name='Набор'

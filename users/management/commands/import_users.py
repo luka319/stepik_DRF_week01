@@ -2,11 +2,16 @@ import requests
 from django.core.management import BaseCommand
 from users.models import User
 
-f=open(r'static/item_foodboxes.json',"wb") #открываем файл для записи, в режиме wb
-ufr = requests.get("https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/foodboxes.json") #делаем запрос
-f.write(ufr.content) #записываем содержимое в файл; content запроса
-f.close()
+# f=open(r'static/item_foodboxes.json',"wb") #открываем файл для записи, в режиме wb
+# ufr = requests.get("https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/foodboxes.json") #делаем запрос
+# f.write(ufr.content) #записываем содержимое в файл; content запроса
+# f.close()
 
+# new_objects = []
+# for people in peoples:
+#     obj, created = People.objects.update_or_create(...)
+#     if created:
+#         new_objects.append(obj.id)
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -19,7 +24,7 @@ class Command(BaseCommand):
             except ValueError:
                 User.objects.update_or_create(self, username="John Dou_что-то не тоу")
             finally:
-                User.objects.update_or_create(self,
+                obj, created = User.objects.update_or_create(self,
                     id=int(users['id']),
                     username=users['email'].split("@")[0],
                     first_name=users['info']['name'],
@@ -28,7 +33,9 @@ class Command(BaseCommand):
                     middle_name=users['info']['patronymic'],
                     phone=users["contacts"]["phoneNumber"],
                     address=users['city_kladr'],
-            )
+                    ) # finally
+                print(f"{obj=}, {created=}")
+
 """
 AbstractUser:
    is_staff = models.BooleanField(
